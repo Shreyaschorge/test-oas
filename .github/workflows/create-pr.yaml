@@ -38,16 +38,11 @@ jobs:
           git push origin HEAD:$BRANCH_NAME
         shell: bash
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          token: ${{ secrets.NODEJS_SDK_PAT }}
-          repository: 'Shreyaschorge/poc-nodejs-sdk'
-          path: 'poc-nodejs-sdk'
-          commit-message: Update OAS submodule
-          branch: $BRANCH_NAME
-          title: Update OAS submodule
-          body: |
-            This pull request updates the OAS submodule to include the latest changes.
-          base: main
-          labels: oas-update
+      - name: Create Pull Request via API
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.NODEJS_SDK_PAT }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/Shreyaschorge/poc-nodejs-sdk/pulls \
+            -d '{"title":"Update OAS submodule","head":"'"$BRANCH_NAME"'","base":"main","body":"This pull request updates the OAS submodule to include the latest changes."}'
+        shell: bash
