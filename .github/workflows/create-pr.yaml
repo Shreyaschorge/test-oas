@@ -24,6 +24,7 @@ jobs:
       - name: Update OAS submodule in nodejs-sdk
         run: |
           cd poc-nodejs-sdk
+          yarn install
           git submodule update --remote src/oas
           yarn generate:all
           git add .
