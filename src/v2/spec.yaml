@@ -16,6 +16,15 @@ components:
       name: x-api-key
       description: "API key to authorize requests"
       x-default: "NEYNAR_API_DOCS"
+  
+  parameters:
+    XExperimentsEnabled:
+      name: x-experiments-enabled
+      in: header
+      required: true
+      schema:
+        type: string
+      description: Enable experimental features
 
   schemas:
     Address:
@@ -4025,6 +4034,8 @@ paths:
       externalDocs:
         url: https://docs.neynar.com/reference/register-signed-key-for-developer-managed-signer
       operationId: register-signed-key-for-developer-managed-signer
+      parameters:
+        - $ref: '#/components/parameters/XExperimentsEnabled'
       requestBody:
         required: true
         content:
