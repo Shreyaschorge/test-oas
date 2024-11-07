@@ -36,6 +36,8 @@ jobs:
           yarn generate:all
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+          git remote set-url origin https://$GITHUB_ACTOR:${{ secrets.NODEJS_SDK_PAT }}@github.com/Shreyaschorge/poc-nodejs-sdk.git
+          echo "::add-mask::${{ secrets.NODEJS_SDK_PAT }}"
           git add .
           git commit -m "Update OAS submodule"
           git push origin HEAD
