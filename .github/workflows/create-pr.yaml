@@ -20,7 +20,7 @@ jobs:
           path: 'poc-nodejs-sdk'
           token: ${{ secrets.NODEJS_SDK_PAT }}
           submodules: recursive
-          persist-credentials: false
+          persist-credentials: true
 
       - name: Create new branch
         run: |
@@ -39,8 +39,7 @@ jobs:
           git add .
           git commit -m "Update OAS submodule"
           git push origin HEAD
-        env:
-          GITHUB_TOKEN: ${{ secrets.NODEJS_SDK_PAT }}
+        shell: bash
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
