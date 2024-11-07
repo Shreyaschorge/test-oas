@@ -12,13 +12,21 @@ jobs:
       - name: Checkout OAS repository
         uses: actions/checkout@v3
 
-      - name: Clone nodejs-sdk repository
+      - name: Checkout nodejs-sdk repository
+        uses: actions/checkout@v3
+        with:
+          repository: 'Shreyaschorge/poc-nodejs-sdk'
+          ref: 'main'
+          path: 'poc-nodejs-sdk'
+          token: ${{ secrets.NODEJS_SDK_PAT }}
+          submodules: recursive
+          persist-credentials: false
+
+      - name: Create new branch
         run: |
-          git clone https://github.com/Shreyaschorge/poc-nodejs-sdk.git
           cd poc-nodejs-sdk
           git checkout -b update-oas-${{ github.run_id }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.NODEJS_SDK_PAT }}
+        shell: bash
 
       - name: Update OAS submodule in nodejs-sdk
         run: |
