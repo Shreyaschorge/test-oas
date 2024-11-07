@@ -5696,7 +5696,7 @@ paths:
       description: Fetch a list of frames made by the developer (identified by API key)
       externalDocs:
         url: https://docs.neynar.com/reference/fetch-neynar-frames
-      operationId: fetch-neynar-frames
+      operationId: fetch-neynar-framess
       responses:
         "200":
           description: A list of frames
