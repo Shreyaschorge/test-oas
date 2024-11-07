@@ -16,14 +16,14 @@ jobs:
       - name: Clone nodejs-sdk repository
         run: |
           git clone https://github.com/Shreyaschorge/poc-nodejs-sdk.git
-          cd nodejs-sdk
+          cd poc-nodejs-sdk
           git checkout -b update-oas-$(date +%s)
         env:
           GITHUB_TOKEN: ${{ secrets.NODEJS_SDK_PAT }}
 
       - name: Update OAS submodule in nodejs-sdk
         run: |
-          cd nodejs-sdk
+          cd poc-nodejs-sdk
           git submodule update --remote src/oas
           yarn generate:all
           git add .
