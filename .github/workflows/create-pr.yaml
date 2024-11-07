@@ -1,4 +1,3 @@
-
 name: Create Pull Request in NodeJS SDK
 
 on:
@@ -17,7 +16,7 @@ jobs:
         run: |
           git clone https://github.com/Shreyaschorge/poc-nodejs-sdk.git
           cd poc-nodejs-sdk
-          git checkout -b update-oas-$(date +%s)
+          git checkout -b update-oas-${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.NODEJS_SDK_PAT }}
 
