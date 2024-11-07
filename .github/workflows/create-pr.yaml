@@ -30,11 +30,13 @@ jobs:
           git checkout -b $BRANCH_NAME
           yarn install
           git submodule update --remote src/oas
-          yarn generate:all
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .
           git commit -m "Update OAS submodule"
+          yarn generate:all
+          git add .
+          git commit -m "Update generated files"
           git push origin HEAD:$BRANCH_NAME
         shell: bash
 
