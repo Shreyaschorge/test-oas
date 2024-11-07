@@ -27,6 +27,8 @@ jobs:
           yarn install
           git submodule update --remote src/oas
           yarn generate:all
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
           git add .
           git commit -m "Update OAS submodule"
           git push origin HEAD
