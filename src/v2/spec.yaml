@@ -4668,7 +4668,7 @@ paths:
       description: Fetch multiple casts using their respective hashes.
       externalDocs:
         url: https://docs.neynar.com/reference/fetch-bulk-casts
-      operationId: fetch-bulk-casts
+      operationId: fetch-bulk-castss
       parameters:
         - name: casts
           in: query
