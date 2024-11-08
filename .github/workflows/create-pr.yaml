@@ -24,19 +24,45 @@ jobs:
           submodules: recursive
           persist-credentials: true
 
-      - name: Update OAS submodule in nodejs-sdk
+      - name: Update OAS submodule and package version in nodejs-sdk
         run: |
           cd poc-nodejs-sdk
           git checkout -b $BRANCH_NAME
           yarn install
+
+          # Update OAS submodule
           git submodule update --remote src/oas
+
+          # Set Git config
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
+
+          # Commit updated OAS submodule
           git add .
           git commit -m "Update OAS submodule"
+
+          # Generate code
           yarn generate:all
+
+          # Commit generated files
           git add .
           git commit -m "Update generated files"
+
+          # Parse x-sdk-version from OAS
+          # Install yq if using YAML
+          sudo wget -O /usr/bin/yq https://github.com/mikefarah/yq/releases/download/v4.24.5/yq_linux_amd64
+          sudo chmod +x /usr/bin/yq
+          SDK_VERSION=$(yq e '.info."x-sdk-version"' src/oas/src/v2/spec.yaml)
+          echo "SDK Version: $SDK_VERSION"
+
+          # Update package.json version
+          npm version --no-git-tag-version "$SDK_VERSION"
+
+          # Commit updated package.json
+          git add package.json
+          git commit -m "Update package.json version to $SDK_VERSION"
+
+          # Push changes
           git push origin HEAD:$BRANCH_NAME
         shell: bash
 
